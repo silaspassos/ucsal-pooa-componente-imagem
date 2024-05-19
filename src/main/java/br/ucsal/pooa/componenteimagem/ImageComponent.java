@@ -1,5 +1,6 @@
 package br.ucsal.pooa.componenteimagem;
 
+import java.awt.AlphaComposite;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -299,5 +300,36 @@ public class ImageComponent {
 		}
 		g2d.dispose();
 		return copy(image);
+	}
+
+	/**
+	 * Aplica marca d'água na imagem.
+	 * 
+	 * @param image     A imagem principal à qual a marca d'água será aplicada.
+	 * @param watermark A imagem da marca d'água.
+	 * @param opacity   A opacidade da marca d'água (0.0 a 1.0).
+	 * @param x         A posição horizontal da marca d'água.
+	 * @param y         A posição vertical da marca d'água.
+	 * @return A imagem com a marca d'água aplicada.
+	 */
+	public static BufferedImage applyWatermark(BufferedImage image, BufferedImage watermark, float opacity, int x,
+			int y) {
+		int w = image.getWidth();
+		int h = image.getHeight();
+
+		// Criar uma nova imagem para armazenar o resultado
+		BufferedImage watermarkedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+		// Desenhar a imagem principal na nova imagem
+		Graphics2D g2d = watermarkedImage.createGraphics();
+		g2d.drawImage(image, 0, 0, null);
+
+		// Aplicar a marca d'água
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+		g2d.drawImage(watermark, x, y, null);
+
+		g2d.dispose();
+
+		return watermarkedImage;
 	}
 }

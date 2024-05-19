@@ -1,5 +1,6 @@
 package br.ucsal.pooa.componenteimagem;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -27,9 +28,28 @@ public class ComponentTester {
 		textList.add(worldText);
 
 		BufferedImage imageWithText = component.addText(flippedImage, textList);
-		BufferedImage finalImage = component.resize(imageWithText, imageWithText.getWidth() / 2, imageWithText.getHeight() / 2);
+
+		BufferedImage finalImage = component.resize(imageWithText, imageWithText.getWidth(), imageWithText.getHeight());
 
 		try {
+			BufferedImage watermark = component.open("examples/watermark.png");
+
+			int repeatX = (int) Math.ceil((double) finalImage.getWidth() / watermark.getWidth());
+			int repeatY = (int) Math.ceil((double) finalImage.getHeight() / watermark.getHeight());
+
+			BufferedImage tiledWatermark = new BufferedImage(finalImage.getWidth(), finalImage.getHeight(),
+					BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = tiledWatermark.createGraphics();
+
+			for (int x = 0; x < repeatX; x++) {
+				for (int y = 0; y < repeatY; y++) {
+					g2d.drawImage(watermark, x * watermark.getWidth(), y * watermark.getHeight(), null);
+				}
+			}
+			g2d.dispose();
+
+			finalImage = ImageComponent.applyWatermark(finalImage, tiledWatermark, 0.5f, 0, 0);
+
 			component.save(finalImage, "examples/output.png");
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
