@@ -29,6 +29,9 @@ public class ComponentTester {
 		BufferedImage imageWithText = component.addText(flippedImage, textList);
 		BufferedImage finalImage = component.resize(imageWithText, imageWithText.getWidth() / 2, imageWithText.getHeight() / 2);
 
+		// Rotacionar a imagem final
+		BufferedImage rotatedImage = component.rotate(finalImage, 45); // Rotacionar a imagem em 45 graus
+
 		try {
 			component.save(finalImage, "examples/output.png");
 		} catch (IOException e) {
