@@ -30,19 +30,28 @@ public class ImageComponent {
 	}
 
 	private void renderTextIntoImage(Graphics2D g2d, ImageText text) {
-		int type = Font.PLAIN;
+		int fontStyle = Font.PLAIN;
 
-		if (text.isItalics())
-			type = Font.ITALIC;
-		else if (text.isBold())
-			type = Font.BOLD;
+		if (text.isBold() && text.isItalics()) {
+			fontStyle = Font.BOLD | Font.ITALIC;
+		} else if (text.isBold()) {
+			fontStyle = Font.BOLD;
+		} else if (text.isItalics()) {
+			fontStyle = Font.ITALIC;
+		}
 
-		renderTextIntoImage(g2d, text.getText(), text.getX(), text.getY(), text.getFont(), text.getSize(), type);
+		String content = text.getText();
+		int x = text.getX();
+		int y = text.getY();
+		String fontName = text.getFont();
+		int fontSize = text.getSize();
+
+		renderTextIntoImage(g2d, content, x, y, fontName, fontSize, fontStyle);
 	}
 
 	/**
 	 * Abre uma imagem pelo caminho especificado.
-	 * 
+	 *
 	 * @param path O caminho da imagem a ler.
 	 * @return A imagem que foi lida.
 	 * @throws IOException
@@ -61,7 +70,7 @@ public class ImageComponent {
 
 	/**
 	 * Salva a imagem para o caminho especificado.
-	 * 
+	 *
 	 * @param image A imagem a salvar.
 	 * @param type  O formato em que a imagem deve ser salva.
 	 * @param path  O caminho em que a imagem deve ser salva.
@@ -83,7 +92,7 @@ public class ImageComponent {
 
 	/**
 	 * Salva a imagem para o caminho especificado.
-	 * 
+	 *
 	 * @param image A imagem a salvar.
 	 * @param path  O caminho em que a imagem deve ser salva.
 	 * @throws IOException
@@ -94,7 +103,7 @@ public class ImageComponent {
 
 	/**
 	 * Cria uma cópia da imagem especificada.
-	 * 
+	 *
 	 * @param image A imagem a ser copiada.
 	 * @return A cópia da imagem original.
 	 */
@@ -104,7 +113,7 @@ public class ImageComponent {
 
 	/**
 	 * Redimensiona a imagem para uma largura e altura específicas.
-	 * 
+	 *
 	 * @param image  A imagem a ser redimensionada.
 	 * @param width  A largura desejada.
 	 * @param height A altura desejada.
@@ -120,7 +129,7 @@ public class ImageComponent {
 
 	/**
 	 * Recorta a imagem pelos limites especificados.
-	 * 
+	 *
 	 * @param image A imagem a ser recortada.
 	 * @param rect  Limites do recorte.
 	 * @return A imagem recortada.
@@ -142,7 +151,7 @@ public class ImageComponent {
 
 	/**
 	 * Recorta a imagem pelos limites especificados.
-	 * 
+	 *
 	 * @param image A imagem a ser recortada.
 	 * @param cropX Coluna do recorte.
 	 * @param cropY Linha do recorte.
@@ -160,7 +169,7 @@ public class ImageComponent {
 
 	/**
 	 * Espelha a imagem horizontalmente.
-	 * 
+	 *
 	 * @param image A imagem a ser espelhada.
 	 * @return A imagem espelhada.
 	 */
@@ -173,7 +182,7 @@ public class ImageComponent {
 
 	/**
 	 * Espelha a imagem verticalmente.
-	 * 
+	 *
 	 * @param image A imagem a ser espelhada.
 	 * @return A imagem espelhada.
 	 */
@@ -186,7 +195,7 @@ public class ImageComponent {
 
 	/**
 	 * Aplica um filtro de escala de cinza na imagem.
-	 * 
+	 *
 	 * @param image A imagem a ser filtrada.
 	 * @return A imagem filtrada.
 	 */
@@ -244,7 +253,7 @@ public class ImageComponent {
 
 	/**
 	 * Adiciona texto à imagem.
-	 * 
+	 *
 	 * @param image A imagem à qual o texto será adicionado.
 	 * @param text  O texto a ser adicionado.
 	 * @param x     A posição horizontal do texto na imagem.
@@ -262,7 +271,7 @@ public class ImageComponent {
 
 	/**
 	 * Adiciona texto à imagem.
-	 * 
+	 *
 	 * @param image A imagem à qual o texto será adicionado.
 	 * @param text  O texto a ser adicionado.
 	 * @param x     A posição horizontal do texto na imagem.
@@ -275,7 +284,7 @@ public class ImageComponent {
 
 	/**
 	 * Adiciona texto à imagem.
-	 * 
+	 *
 	 * @param image A imagem à qual o texto será adicionado.
 	 * @param text  O texto a ser adicionado.
 	 * @return A imagem com o texto adicionado.
@@ -286,7 +295,7 @@ public class ImageComponent {
 
 	/**
 	 * Adiciona textos à imagem.
-	 * 
+	 *
 	 * @param image A imagem à qual os textos serão adicionados.
 	 * @param text  Os textos a serem adicionados.
 	 * @return A imagem com os textos adicionados.
