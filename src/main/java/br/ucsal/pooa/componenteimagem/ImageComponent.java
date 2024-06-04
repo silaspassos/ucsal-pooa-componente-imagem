@@ -32,12 +32,13 @@ public class ImageComponent {
 	private void renderTextIntoImage(Graphics2D g2d, ImageText text) {
 		int fontStyle = Font.PLAIN;
 
-		if (text.isBold() && text.isItalics()) {
-			fontStyle = Font.BOLD | Font.ITALIC;
-		} else if (text.isBold()) {
-			fontStyle = Font.BOLD;
-		} else if (text.isItalics()) {
-			fontStyle = Font.ITALIC;
+		if (text.isBold()) {
+			fontStyle |= Font.BOLD;
+			fontStyle &= ~Font.PLAIN;
+		}
+		if (text.isItalics()) {
+			fontStyle |= Font.ITALIC;
+			fontStyle &= ~Font.PLAIN;
 		}
 
 		String content = text.getText();
