@@ -12,6 +12,9 @@ public class ComponentTester {
 		TextRenderer textRenderer = new TextRenderer();
 		WatermarkProcessor watermarkProcessor = new WatermarkProcessor();
 
+		// Rotacionar a imagem final
+		BufferedImage rotatedImage = component.rotate(finalImage, 45); // Rotacionar a imagem em 45 graus
+
 		try {
 			BufferedImage originalImage = fileHandler.open("examples/input.jpg");
 			BufferedImage croppedImage = imageProcessor.crop(originalImage, new Rectangle(700, 0, 800, 800));
