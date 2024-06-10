@@ -20,12 +20,24 @@ public class TextRenderer {
     }
 
     private void renderTextIntoImage(Graphics2D g2d, ImageText text) {
-        int type = Font.PLAIN;
-        if (text.isItalics())
-            type = Font.ITALIC;
-        else if (text.isBold())
-            type = Font.BOLD;
-        renderTextIntoImage(g2d, text.getText(), text.getX(), text.getY(), text.getFont(), text.getSize(), type);
+        int fontStyle = Font.PLAIN;
+
+        if (text.isBold()) {
+            fontStyle |= Font.BOLD;
+            fontStyle &= ~Font.PLAIN;
+        }
+        if (text.isItalics()) {
+            fontStyle |= Font.ITALIC;
+            fontStyle &= ~Font.PLAIN;
+        }
+
+        String content = text.getText();
+        int x = text.getX();
+        int y = text.getY();
+        String fontName = text.getFont();
+        int fontSize = text.getSize();
+
+        renderTextIntoImage(g2d, content, x, y, fontName, fontSize, fontStyle);
     }
 
     public BufferedImage addText(BufferedImage image, String text, int x, int y, String font, int size) {
