@@ -6,10 +6,24 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class ImageProcessor {
+    /**
+     * Cria uma cópia da imagem especificada.
+     * 
+     * @param image A imagem a ser copiada.
+     * @return A cópia da imagem original.
+     */
     public BufferedImage copy(BufferedImage image) {
         return resize(image, image.getWidth(), image.getHeight());
     }
 
+    /**
+     * Redimensiona a imagem para uma largura e altura específicas.
+     * 
+     * @param image  A imagem a ser redimensionada.
+     * @param width  A largura desejada.
+     * @param height A altura desejada.
+     * @return A imagem redimensionada.
+     */
     public BufferedImage resize(BufferedImage image, int width, int height) {
         BufferedImage resizedImage = new BufferedImage(width, height, image.getType());
         Graphics2D g2d = resizedImage.createGraphics();
@@ -18,6 +32,13 @@ public class ImageProcessor {
         return resizedImage;
     }
 
+    /**
+     * Recorta a imagem pelos limites especificados.
+     * 
+     * @param image A imagem a ser recortada.
+     * @param rect  Limites do recorte.
+     * @return A imagem recortada.
+     */
     public BufferedImage crop(BufferedImage image, Rectangle rect) {
         BufferedImage croppedImage = new BufferedImage((int) rect.getWidth(), (int) rect.getHeight(), image.getType());
         Graphics2D g2d = croppedImage.createGraphics();
@@ -30,6 +51,12 @@ public class ImageProcessor {
         return croppedImage;
     }
 
+    /**
+     * Espelha a imagem horizontalmente.
+     * 
+     * @param image A imagem a ser espelhada.
+     * @return A imagem espelhada.
+     */
     public BufferedImage flipX(BufferedImage image) {
         AffineTransform transform = AffineTransform.getScaleInstance(-1, 1);
         transform.translate(-image.getWidth(null), 0);
@@ -37,6 +64,12 @@ public class ImageProcessor {
         return transformOp.filter(image, null);
     }
 
+    /**
+     * Espelha a imagem verticalmente.
+     * 
+     * @param image A imagem a ser espelhada.
+     * @return A imagem espelhada.
+     */
     public BufferedImage flipY(BufferedImage image) {
         AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
         transform.translate(0, -image.getHeight(null));
@@ -44,6 +77,12 @@ public class ImageProcessor {
         return transformOp.filter(image, null);
     }
 
+    /**
+     * Aplica um filtro de escala de cinza na imagem.
+     * 
+     * @param image A imagem a ser filtrada.
+     * @return A imagem filtrada.
+     */
     public BufferedImage applyGrayscaleFilter(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();

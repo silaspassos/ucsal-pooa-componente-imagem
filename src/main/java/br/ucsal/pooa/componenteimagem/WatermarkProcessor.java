@@ -4,6 +4,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class WatermarkProcessor {
+    /**
+     * Aplica uma marca d'água a imagem.
+     * 
+     * @param image     A imagem a ter a marca d'água aplicada.
+     * @param watermark A imagem contendo a marca d'água.
+     * @param opacity   A opacidade da marca d'água. Deve ser um valor float entre [0.0, 1.0] inclusivo.
+     * @param x         Posição X da marca d'água.
+     * @param y         Posição Y da marca d'água.
+     * @return A imagem com a marca d'água aplicada.
+     */
     public BufferedImage applyWatermark(BufferedImage image, BufferedImage watermark, float opacity, int x, int y) {
         int w = image.getWidth();
         int h = image.getHeight();
