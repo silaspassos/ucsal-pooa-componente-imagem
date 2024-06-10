@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class WatermarkProcessor {
-    public static BufferedImage applyWatermark(BufferedImage image, BufferedImage watermark, float opacity, int x, int y) {
+    public BufferedImage applyWatermark(BufferedImage image, BufferedImage watermark, float opacity, int x, int y) {
         int w = image.getWidth();
         int h = image.getHeight();
         BufferedImage watermarkedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
